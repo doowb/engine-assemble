@@ -28,9 +28,10 @@
     "test": "mocha -R spec"
   },
   "devDependencies": {
-    "verb-tag-jscomments": ">= 0.2.0",
+    "mocha": "*",
+    "should": "^4.2.0",
     "verb": ">= 0.2.6",
-    "mocha": "*"
+    "verb-tag-jscomments": ">= 0.2.0"
   },
   "keywords": [
     "docs",
@@ -40,5 +41,9 @@
     "markdown",
     "templates",
     "verb"
-  ]
+  ],
+  "dependencies": {
+    "engine-handlebars": "^0.3.0",
+    "handlebars-helpers": "^0.5.8"
+  }
 }
