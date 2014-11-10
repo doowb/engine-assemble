@@ -44,6 +44,7 @@
   ],
   "dependencies": {
     "engine-handlebars": "^0.3.0",
-    "handlebars-helpers": "^0.5.8"
+    "handlebars-helpers": "doowb/handlebars-helpers#v0.7.0",
+    "lodash": "^2.4.1"
   }
 }

@@ -12,8 +12,8 @@
  */
 
 var handlebars = module.exports = require('engine-handlebars');
-// var helpers = require('handlebars-helpers');
-
+var Helpers = require('handlebars-helpers');
+var _ = require('lodash');
 
 // hold reference to original `render`
 var handlebarsRender = handlebars.render;
@@ -37,6 +37,7 @@ var handlebarsRender = handlebars.render;
 
 handlebars.render = function render(str, options, cb) {
   var opts = options || {};
+  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
   handlebarsRender.call(handlebars, str, opts, cb);
 };
 
@@ -61,6 +62,7 @@ var handlebarsRenderSync = handlebars.renderSync;
 
 handlebars.renderSync = function renderSync(str, options) {
   var opts = options || {};
+  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
   return handlebarsRenderSync.call(handlebars, str, opts);
 };
 
@@ -87,6 +89,7 @@ handlebars.renderFile = function renderFile(path, options, cb) {
     options = {};
   }
   var opts = options || {};
+  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
   handlebarsRenderFile.call(handlebars, path, opts, cb);
 };
 

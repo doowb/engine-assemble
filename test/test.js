@@ -31,6 +31,17 @@ describe('.render()', function() {
     });
   });
 
+  it('should use default helpers.', function (done) {
+    var ctx = {
+      name: 'brian woodward'
+    };
+    handlebars.render('{{capitalizeEach name}}', ctx, function (err, content) {
+      if (err) console.log(err);
+      content.should.equal('Brian Woodward');
+      done();
+    });
+  });
+
   it('should use helpers passed on the options.', function(done) {
     var ctx = {
       name: 'Jon Schlinkert',
@@ -49,6 +60,22 @@ describe('.render()', function() {
       if (err) console.log(err);
 
       content.should.equal('JON SCHLINKERT');
+      done();
+    });
+  });
+
+  it('should use helpers on options over default helpers.', function (done) {
+    var ctx = {
+      name: 'brian woodward',
+      helpers: {
+        capitalizeEach: function (str) {
+          return str.toUpperCase();
+        }
+      }
+    };
+    handlebars.render('{{capitalizeEach name}}', ctx, function (err, content) {
+      if (err) console.log(err);
+      content.should.equal('BRIAN WOODWARD');
       done();
     });
   });
