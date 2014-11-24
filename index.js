@@ -15,6 +15,27 @@ var handlebars = module.exports = require('engine-handlebars');
 var Helpers = require('handlebars-helpers');
 var _ = require('lodash');
 
+// hold reference to original `compile`
+var handlebarsCompile = handlebars.compile;
+/**
+ * Handlebars string support. Compile the given `str` and register helpers and partials from settings
+ *
+ * ```js
+ * var engine = require('engine-assemble');
+ * var fn = engine.compile('{{name}}', {});
+ * ```
+ *
+ * @param {String} `str`
+ * @param {Object} `settings` object containing optional helpers and partials
+ * @api public
+ */
+
+handlebars.compile = function compile(str, options) {
+  var opts = options || {};
+  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
+  return handlebarsCompile.call(handlebars, str, opts);
+};
+
 // hold reference to original `render`
 var handlebarsRender = handlebars.render;
 /**
@@ -37,8 +58,8 @@ var handlebarsRender = handlebars.render;
 
 handlebars.render = function render(str, options, cb) {
   var opts = options || {};
-  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  handlebarsRender.call(handlebars, str, opts, cb);
+  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
+  return handlebarsRender.call(handlebars, str, opts, cb);
 };
 
 // hold reference to original `renderSync`
@@ -62,7 +83,7 @@ var handlebarsRenderSync = handlebars.renderSync;
 
 handlebars.renderSync = function renderSync(str, options) {
   var opts = options || {};
-  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
+  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
   return handlebarsRenderSync.call(handlebars, str, opts);
 };
 
@@ -89,8 +110,8 @@ handlebars.renderFile = function renderFile(path, options, cb) {
     options = {};
   }
   var opts = options || {};
-  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  handlebarsRenderFile.call(handlebars, path, opts, cb);
+  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
+  return handlebarsRenderFile.call(handlebars, path, opts, cb);
 };
 
 /**
