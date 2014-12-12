@@ -11,14 +11,31 @@
  * Module dependencies.
  */
 
-var handlebars = module.exports = require('engine-handlebars');
-var Helpers = require('handlebars-helpers');
+var engine = require('engine-handlebars');
+var helpers = require('handlebars-helpers');
 var _ = require('lodash');
 
-// hold reference to original `compile`
-var handlebarsCompile = handlebars.compile;
 /**
- * Handlebars string support. Compile the given `str` and register helpers and partials from settings
+ * Expose `engine`
+ */
+
+module.exports = engine;
+
+/**
+ * Store a reference to the original, un-modified
+ * engine-handlebars methods
+ */
+
+var orig = {
+  compile: engine.compile,
+  render: engine.render,
+  renderSync: engine.renderSync,
+  renderFile: engine.renderFile
+};
+
+/**
+ * Handlebars compile support. Compile the given `str`, register helpers
+ * and partials from settings and return a function.
  *
  * ```js
  * var engine = require('engine-assemble');
@@ -27,19 +44,19 @@ var handlebarsCompile = handlebars.compile;
  *
  * @param {String} `str`
  * @param {Object} `settings` object containing optional helpers and partials
+ * @return {Function} Compiled template function
  * @api public
  */
 
-handlebars.compile = function compile(str, options) {
+engine.compile = function compile(str, options) {
   var opts = options || {};
-  opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  return handlebarsCompile.call(handlebars, str, opts);
+  opts.helpers = _.extend({}, helpers(opts), opts.helpers);
+  return orig.compile.call(engine, str, opts);
 };
 
-// hold reference to original `render`
-var handlebarsRender = handlebars.render;
 /**
- * Handlebars string support. Render the given `str` and invoke the callback `cb(err, str)`.
+ * Handlebars string support. Render the given `str` and invoke the
+ * callback `cb(err, str)`.
  *
  * ```js
  * var engine = require('engine-assemble');
@@ -56,16 +73,14 @@ var handlebarsRender = handlebars.render;
  * @api public
  */
 
-handlebars.render = function render(str, options, cb) {
+engine.render = function render(str, options, cb) {
   var opts = options || {};
-  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  return handlebarsRender.call(handlebars, str, opts, cb);
+  if (typeof str === 'string') opts.helpers = _.extend({}, helpers(opts), opts.helpers);
+  return orig.render.call(engine, str, opts, cb);
 };
 
-// hold reference to original `renderSync`
-var handlebarsRenderSync = handlebars.renderSync;
 /**
- * Synchronously render Handlebars or templates.
+ * Handlebars sync support. Synchronously render Handlebars templates.
  *
  * ```js
  * var engine = require('engine-assemble');
@@ -81,16 +96,15 @@ var handlebarsRenderSync = handlebars.renderSync;
  * @api public
  */
 
-handlebars.renderSync = function renderSync(str, options) {
+engine.renderSync = function renderSync(str, options) {
   var opts = options || {};
-  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  return handlebarsRenderSync.call(handlebars, str, opts);
+  if (typeof str === 'string') opts.helpers = _.extend({}, helpers(opts), opts.helpers);
+  return orig.renderSync.call(engine, str, opts);
 };
 
-// hold reference to original `renderFile`
-var handlebarsRenderFile = handlebars.renderFile;
 /**
- * Handlebars file support. Render a file at the given `path` and callback `cb(err, str)`.
+ * Handlebars file support. Render a file at the given `filepath` and
+ * callback `cb(err, str)`.
  *
  * ```js
  * var engine = require('engine-assemble');
@@ -98,24 +112,24 @@ var handlebarsRenderFile = handlebars.renderFile;
  * //=> 'Jon'
  * ```
  *
- * @param {String} `path`
+ * @param {String} `filepath`
  * @param {Object|Function} `options` or callback function.
  * @param {Function} `cb` callback function
  * @api public
  */
 
-handlebars.renderFile = function renderFile(path, options, cb) {
+engine.renderFile = function renderFile(filepath, options, cb) {
   if (typeof options === 'function') {
     cb = options;
     options = {};
   }
   var opts = options || {};
-  if (typeof str === 'string') opts.helpers = _.extend({}, Helpers(opts), opts.helpers);
-  return handlebarsRenderFile.call(handlebars, path, opts, cb);
+  if (typeof str === 'string') opts.helpers = _.extend({}, helpers(opts), opts.helpers);
+  return orig.renderFile.call(engine, filepath, opts, cb);
 };
 
 /**
  * Express support.
  */
 
-handlebars.__express = handlebars.renderFile;
+engine.__express = engine.renderFile;
