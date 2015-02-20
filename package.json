@@ -36,8 +36,7 @@
     "lodash": "^2.4.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "^4.2.0"
+    "mocha": "*"
   },
   "keywords": [
     "assemble",

@@ -9,14 +9,13 @@
 
 var fs = require('fs');
 var path = require('path');
-require('should');
 var handlebars = require('..');
-
+var assert = require('assert');
 
 describe('.renderSync()', function () {
   it('should render templates.', function () {
     var str = handlebars.renderSync('Jon {{ name }}', {name: 'Schlinkert'});
-    str.should.equal('Jon Schlinkert');
+    assert.equal(str, 'Jon Schlinkert');
   });
 });
 
@@ -26,7 +25,7 @@ describe('.render()', function() {
     var ctx = {name: 'Jon Schlinkert'};
 
     handlebars.render('{{ name }}', ctx, function (err, content) {
-      content.should.equal('Jon Schlinkert');
+      assert.equal(content, 'Jon Schlinkert');
       done();
     });
   });
@@ -37,7 +36,7 @@ describe('.render()', function() {
     };
     handlebars.render('{{capitalizeEach name}}', ctx, function (err, content) {
       if (err) console.log(err);
-      content.should.equal('Brian Woodward');
+      assert.equal(content, 'Brian Woodward');
       done();
     });
   });
@@ -59,7 +58,7 @@ describe('.render()', function() {
     handlebars.render('{{upper (include "content.hbs")}}', ctx, function (err, content) {
       if (err) console.log(err);
 
-      content.should.equal('JON SCHLINKERT');
+      assert.equal(content, 'JON SCHLINKERT');
       done();
     });
   });
@@ -75,7 +74,7 @@ describe('.render()', function() {
     };
     handlebars.render('{{capitalizeEach name}}', ctx, function (err, content) {
       if (err) console.log(err);
-      content.should.equal('BRIAN WOODWARD');
+      assert.equal(content, 'BRIAN WOODWARD');
       done();
     });
   });
@@ -90,7 +89,7 @@ describe('.render()', function() {
 
     handlebars.render('{{> a }}{{> b }}', ctx, function (err, content) {
       if (err) console.log(err);
-      content.should.equal('foobar');
+      assert.equal(content, 'foobar');
       done();
     });
   });
@@ -102,7 +101,7 @@ describe('.renderFile()', function() {
     var ctx = {name: 'Jon Schlinkert'};
 
     handlebars.renderFile('test/fixtures/default.hbs', ctx, function (err, content) {
-      content.should.equal('Jon Schlinkert');
+      assert.equal(content, 'Jon Schlinkert');
       done();
     });
   });
