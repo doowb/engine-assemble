@@ -1,8 +1,8 @@
 /*!
- * engine-handlebars <https://github.com/jonschlinkert/engine-handlebars>
+ * engine-assemble <https://github.com/doowb/engine-assemble>
  *
- * Copyright (c) 2014 Jon Schlinkert, contributors.
- * Licensed under the MIT license.
+ * Copyright (c) 2014-2015, Brian Woodward.
+ * Licensed under the MIT License.
  */
 
 'use strict';
