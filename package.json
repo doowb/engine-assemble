@@ -14,12 +14,10 @@
   "bugs": {
     "url": "https://github.com/doowb/engine-assemble/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/doowb/engine-assemble/blob/master/LICENSE"
-    }
-  ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/doowb/engine-assemble/blob/master/LICENSE"
+  },
   "files": [
     "index.js"
   ],
@@ -31,9 +29,9 @@
     "test": "mocha"
   },
   "dependencies": {
-    "engine-handlebars": "^0.6.0",
+    "engine-handlebars": "^0.6.1",
     "handlebars-helpers": "assemble/handlebars-helpers#v0.6.0",
-    "lodash": "^2.4.1"
+    "lodash": "^3.5.0"
   },
   "devDependencies": {
     "mocha": "*"
