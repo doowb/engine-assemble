@@ -74,6 +74,15 @@ engine.renderSync('foo/bar/baz.tmpl', {name: 'Jon'});
 ```
 
 
+## Related
+* [engine-handlebars](https://github.com/jonschlinkert/engine-handlebars): Handlebars engine, consolidate.js style but with enhancements. This works with Assemble, express.js, engine-cache or any application that follows consolidate.js conventions.
+* [assemble](http://assemble.io): Static site generator for Grunt.js, Yeoman and Node.js. Used by Zurb Foundation, Zurb Ink, H5BP/Effeckt, Less.js / lesscss.org, Topcoat, Web Experience Toolkit, and hundreds of other projects to build sites, themes, components, documentation, blogs and gh
+* [engines](https://github.com/assemble/engines): Template engine library with fast, synchronous rendering, based on consolidate.
+* [consolidate](https://github.com/visionmedia/consolidate.js): Template engine consolidation library
+
+## Contributing
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/doowb/engine-assemble/issues)
+
 ## Author
 
 **Brian Woodward**
