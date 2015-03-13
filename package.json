@@ -1,7 +1,7 @@
 {
   "name": "engine-assemble",
   "description": "Handlebars engine, consolidate.js style but with enhancements and default helpers. Should work with Assemble, Verb, express.js, engine-cache or any application that supports consolidate.js conventions.",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "homepage": "https://github.com/doowb/engine-assemble",
   "author": {
     "name": "Brian Woodward",
